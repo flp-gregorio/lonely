@@ -1,3 +1,5 @@
+#Felipe Alves Gregorio - 2022008250
+
 from abc import ABC, abstractmethod
 
 class Domestica(ABC):
@@ -107,5 +109,15 @@ if __name__ == "__main__":
     domes3.valorPorHora = 12
     domes3.horasTrabalhadas = 160
     domes = [domes1, domes2, domes3]
+    
+    menorSalario = 999999
+
     for dome in domes:
-        print ('Nome: {} - Telefone: {} - Salário líquido: {}'.format(dome.nome, dome.telefone, dome.getSalario()))
+        print ('Nome: {} - Telefone: {} - Salario: {}'.format(dome.nome, dome.telefone, dome.getSalario()))
+        if(dome.getSalario() < menorSalario):
+            menorSalario = dome.getSalario()
+            melhorOp = dome
+
+
+    print ('\nA melhor opcao eh:')    
+    print ('Nome: {} - Telefone: {} - Salario liquido: {}'.format(melhorOp.nome, melhorOp.telefone, melhorOp.getSalario()))
