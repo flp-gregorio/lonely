@@ -61,7 +61,7 @@ class ContaCorrente(Conta):
         self.__listaTrans = []
     
     def imprimirExtrato(self):
-        print("Conta Corrente")
+        print("\nConta Corrente")
         print("Número da Conta:", self.numC)
         print("Nome do Correntista:", self.nome)
         print("Saldo:", self.saldo)
@@ -85,7 +85,7 @@ class ContaLimite(Conta):
             print("Transação Negada.")
 
     def imprimirExtrato(self):
-        print("Conta Limite")
+        print("\nConta Limite")
         print("Número da Conta:", self.numC)
         print("Nome do Correntista:", self.nome)
         print("Saldo:", self.saldo)
