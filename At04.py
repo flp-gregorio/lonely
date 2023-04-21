@@ -101,7 +101,7 @@ class ContaPoupança(Conta):
 
     @property
     def diaAniversario(self):
-        return self.__diaAniversario
+        return self.__diaAniversario.strftime("%m/%d")
     
     def imprimirExtrato(self):
         print("\nConta Poupança")
