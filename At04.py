@@ -1,7 +1,8 @@
 #Felipe Alves Gregorio - 2022008250
 
 from abc import ABC, abstractmethod
-import datetime as date
+import datetime as dt
+from datetime import date
 
 class Transacao:
     def __init__(self, data, valor, descricao):
@@ -14,7 +15,7 @@ class Conta(ABC):
         self.__nome = nome
         self.__numC = numC
         self.__saldo = saldo
-
+        self.__listaTrans = []
     @property
     def nome(self):
         return self.__nome
@@ -27,6 +28,14 @@ class Conta(ABC):
     def saldo(self):
         return self.__saldo
     
+    @saldo.setter
+    def saldo(self, novoSaldo):
+        self.__saldo = novoSaldo
+
+    @saldo.getter
+    def saldo(self):
+        return self.__saldo
+    
     @abstractmethod
     def imprimirExtrato(self):
         pass
@@ -34,7 +43,7 @@ class Conta(ABC):
     def depositar(self, valor):
         self.saldo += valor
         transacao = Transacao(date.today(), valor, 'Depósito recebido. Valor: ')
-        self.listaTrans.append(transacao)
+        self.__listaTrans.append(transacao)
         print("Transação Aprovada.")
     
     def retirar(self, valor):
@@ -42,7 +51,7 @@ class Conta(ABC):
             self.saldo -= valor
             print("Transação Aprovada.")
             transacao = Transacao(date.today(), valor, 'Débito Realizado. Valor: ')
-            self.listaTrans.append(transacao)
+            self.__listaTrans.append(transacao)
         else:
             print("Transação Negada.")
 
@@ -57,7 +66,7 @@ class ContaCorrente(Conta):
         print("Nome do Correntista:", self.nome)
         print("Saldo:", self.saldo)
         print("Transações:")
-        for abb in self.listaTrans:
+        for abb in self.__listaTrans:
             print(abb.data.strftime("%d/%m/%Y"), abb.descricao, abb.valor)
 
 class ContaLimite(Conta):
@@ -71,7 +80,7 @@ class ContaLimite(Conta):
             self.saldo -= valor
             print("Transação Aprovada.")
             transacao = Transacao(date.today(), valor, 'Débito Realizado. Valor: ')
-            self.listaTrans.append(transacao)
+            self.__listaTrans.append(transacao)
         else:
             print("Transação Negada.")
 
@@ -88,7 +97,7 @@ class ContaPoupança(Conta):
     def __init__(self, nome, numC, saldo):
         super().__init__(nome,numC, saldo)
         self.__listaTrans = []
-        self.__diaAniversario = date.datetime(1996, 5, 15)
+        self.__diaAniversario = dt.datetime(1996, 5, 15)
 
     @property
     def diaAniversario(self):
