@@ -19,35 +19,11 @@ class Conta(ABC):
     def nome(self):
         return self.__nome
     
-    @nome.setter
-    def nome(self, novoNome):
-        self.__nome = novoNome
-
-    @nome.getter
-    def nome(self):
-        return self.__nome
-
     @property
     def numC(self):
         return self.__numC
-    
-    @numC.setter
-    def numC(self, novoTele):
-        self.__numC = novoTele
-
-    @numC.getter
-    def numC(self):
-        return self.__numC
-    
+        
     @property
-    def saldo(self):
-        return self.__saldo
-    
-    @saldo.setter
-    def saldo(self, novoSaldo):
-        self.__saldo = novoSaldo
-
-    @saldo.getter
     def saldo(self):
         return self.__saldo
     
