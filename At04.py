@@ -70,10 +70,10 @@ class ContaCorrente(Conta):
             print(abb.data.strftime("%d/%m/%Y"), abb.descricao, abb.valor)
 
 class ContaLimite(Conta):
-    def __init__(self, nome, numC, saldo):
+    def __init__(self, nome, numC, saldo, limite):
         super().__init__(nome,numC, saldo)
         self.__listaTrans = []
-        self.__limite = saldo * 0.1
+        self.__limite = limite
 
     def retirar(self, valor):
         if(self.saldo - valor > -1 * (self.__limite)):
@@ -94,20 +94,24 @@ class ContaLimite(Conta):
             print(abb.data.strftime("%d/%m/%Y"), abb.descricao, abb.valor)
 
 class ContaPoupança(Conta):
-    def __init__(self, nome, numC, saldo):
+    def __init__(self, nome, numC, saldo, dataAni):
         super().__init__(nome,numC, saldo)
         self.__listaTrans = []
-        self.__diaAniversario = dt.datetime(1996, 5, 15)
+        self.__diaAniversario = dataAni
 
     @property
     def diaAniversario(self):
+        return self.__diaAniversario
+    
+    def getAniversario(self):
         return self.__diaAniversario.strftime("%m/%d")
+
     
     def imprimirExtrato(self):
         print("\nConta Poupança")
         print("Número da Conta:", self.numC)
         print("Nome do Correntista:", self.nome)
-        print(f"Dia do Aniversário: {self.__diaAniversario}")
+        print(f"Dia do Aniversário: ", self.getAniversario())
         print("Saldo:", self.saldo)
         print("Transações:")
         for abb in self.__listaTrans:
@@ -115,9 +119,9 @@ class ContaPoupança(Conta):
         print("\n")
 
 if __name__ == "__main__":
-    conta1 = ContaPoupança("Carla", 1551, 200)
+    conta1 = ContaPoupança("Carla", 1551, 200, date(2000, 8, 30))
     conta2 = ContaCorrente("Tomas", 1763, 1000)
-    conta3 = ContaLimite("Jorge", 1993, 40000)
+    conta3 = ContaLimite("Jorge", 1993, 40000, 400)
 
     contas = [conta1, conta2, conta3]
 
