@@ -1,7 +1,7 @@
 #Felipe Alves Gregorio - 2022008250
 
 from abc import ABC, abstractmethod
-from datetime import date
+import datetime as date
 
 class Transacao:
     def __init__(self, data, valor, descricao):
@@ -73,12 +73,7 @@ class Conta(ABC):
 class ContaCorrente(Conta):
     def __init__(self, nome, numC, saldo):
         super().__init__(nome,numC, saldo)
-        self.listaTrans = []
-        self.__limite = 400
-
-    @property
-    def limite(self):
-        return self.__limite
+        self.__listaTrans = []
     
     def imprimirExtrato(self):
         print("Conta Corrente")
@@ -92,11 +87,11 @@ class ContaCorrente(Conta):
 class ContaLimite(Conta):
     def __init__(self, nome, numC, saldo):
         super().__init__(nome,numC, saldo)
-        self.listaTrans = []
-        self.limite = saldo * 0.1
+        self.__listaTrans = []
+        self.__limite = saldo * 0.1
 
     def retirar(self, valor):
-        if(self.saldo - valor > -1 * (self.limite)):
+        if(self.saldo - valor > -1 * (self.__limite)):
             self.saldo -= valor
             print("Transação Aprovada.")
             transacao = Transacao(date.today(), valor, 'Débito Realizado. Valor: ')
@@ -110,23 +105,27 @@ class ContaLimite(Conta):
         print("Nome do Correntista:", self.nome)
         print("Saldo:", self.saldo)
         print("Transações:")
-        for abb in self.listaTrans:
+        for abb in self.__listaTrans:
             print(abb.data.strftime("%d/%m/%Y"), abb.descricao, abb.valor)
 
 class ContaPoupança(Conta):
     def __init__(self, nome, numC, saldo):
         super().__init__(nome,numC, saldo)
-        self.listaTrans = []
-        self.diaAniversario = 25
+        self.__listaTrans = []
+        self.__diaAniversario = date.datetime(1996, 5, 15)
+
+    @property
+    def diaAniversario(self):
+        return self.__diaAniversario
     
     def imprimirExtrato(self):
         print("\nConta Poupança")
         print("Número da Conta:", self.numC)
         print("Nome do Correntista:", self.nome)
-        print(f"Dia do Aniversário: {self.diaAniversario}")
+        print(f"Dia do Aniversário: {self.__diaAniversario}")
         print("Saldo:", self.saldo)
         print("Transações:")
-        for abb in self.listaTrans:
+        for abb in self.__listaTrans:
             print(abb.data.strftime("%d/%m/%Y"), abb.descricao, abb.valor)
         print("\n")
 
